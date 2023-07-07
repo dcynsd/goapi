@@ -1,0 +1,14 @@
+package controllers
+
+import (
+    "goapi/pkg/response"
+    "github.com/gin-gonic/gin"
+)
+
+type {{StructNamePlural}}Controller struct{}
+
+func (ctrl *{{StructNamePlural}}Controller) Index(c *gin.Context) {
+    response.Data(c, gin.H{
+		"data": "There is {{StructNamePlural}} index.",
+	})
+}

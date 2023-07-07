@@ -1,0 +1,40 @@
+package models
+
+import (
+    "goapi/pkg/database"
+    "goapi/pkg/paginator"
+    "github.com/gin-gonic/gin"
+)
+
+type {{StructName}} struct {
+    BaseModel
+
+    // Put fields in here
+    FIXME()
+
+    CommonTimestampsField
+}
+
+func ({{VariableName}} *{{StructName}}) Create() {
+    database.DB.Create(&{{VariableName}})
+}
+
+func ({{VariableName}} *{{StructName}}) Save() (rowsAffected int64) {
+    result := database.DB.Save(&{{VariableName}})
+    return result.RowsAffected
+}
+
+func ({{VariableName}} *{{StructName}}) Delete() (rowsAffected int64) {
+    result := database.DB.Delete(&{{VariableName}})
+    return result.RowsAffected
+}
+
+func Paginate(c *gin.Context, perPage int) ({{VariableNamePlural}} []{{StructName}}, paging paginator.Paging) {
+	paging = paginator.Paginate(
+		c,
+		database.DB.Model({{StructName}}{}),
+		&{{VariableNamePlural}},
+		perPage,
+	)
+	return
+}

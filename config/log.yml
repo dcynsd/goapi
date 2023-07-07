@@ -1,0 +1,7 @@
+log_level: ${LOG_LEVEL}
+log_type: daily
+log_filename: storage/logs/logs.log
+log_max_size: 64
+log_max_backup: 5
+log_max_age: 30
+log_compress: false

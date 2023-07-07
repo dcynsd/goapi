@@ -1,0 +1,5 @@
+per_page: ${PER_PAGE}
+url_query_page: ${URL_QUERY_PAGE}
+url_query_sort: ${URL_QUERY_SORT}
+url_query_order: ${URL_QUERY_ORDER}
+url_query_per_page: per_page

@@ -1,0 +1,3 @@
+jwt_expire_time: ${JWT_EXPIRE_TIME}
+jwt_debug_expire_time: 86400
+jwt_max_refresh_time: ${JWT_MAX_REFRESH_TIME}

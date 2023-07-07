@@ -1,0 +1,8 @@
+app_name: ${APP_NAME}
+app_env: ${APP_ENV}
+app_debug: ${APP_DEBUG}
+app_port: ${APP_PORT}
+app_key: ${APP_KEY}
+app_url: ${APP_URL}
+
+timezone: ${APP_TIMEZONE}
