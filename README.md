@@ -1,5 +1,5 @@
 # 简介
-Go 基础模板
+ 一款使用 Gin + Gorm 搭建的基础 Go 框架 
 
 # 目录结构
 
@@ -52,14 +52,19 @@ go run main.go key
 go run main.go make controller user
 ```
 
+生成模型文件
+```shell
+go run main.go make model user
+```
+
 生成请求验证文件
 ```shell
 go run main.go make request user
 ```
 
-生成模型文件
+生成命令行文件
 ```shell
-go run main.go make model user
+go run main.go make cmd sync_user
 ```
 
 生成数据迁移文件
@@ -67,7 +72,27 @@ go run main.go make model user
 go run main.go make migration add_users_table user
 ```
 
-生成命令行文件
+执行未迁移过的文件
 ```shell
-go run main.go make cmd sync_user
+go run main.go migrate up
+```
+
+回滚上一次操作的迁移
+```shell
+go run main.go migrate rollback
+```
+
+回滚所有迁移
+```shell
+go run main.go migrate reset
+```
+
+回滚所有迁移，并执行全部迁移
+```shell
+go run main.go migrate refresh
+```
+
+删除所有表，并执行全部迁移
+```shell
+go run main.go migrate fresh
 ```
