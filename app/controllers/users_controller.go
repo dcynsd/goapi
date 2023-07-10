@@ -1,4 +1,4 @@
-package api
+package controllers
 
 import (
 	"goapi/app/services"

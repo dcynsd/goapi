@@ -14,8 +14,6 @@ func SetupRoute(router *gin.Engine) {
 
 	registerGlobalMiddleWare(router)
 
-	registerWebRoutes(router)
-
 	registerApiRoutes(router)
 
 	setup404Handler(router)
@@ -27,13 +25,6 @@ func registerGlobalMiddleWare(router *gin.Engine) {
 		middlewares.Recovery(),
 		middlewares.ForceUA(),
 	)
-}
-
-func registerWebRoutes(router *gin.Engine) {
-	router.LoadHTMLGlob("resources/views/*")
-
-	webRoutes := routes.WebRoute{}
-	webRoutes.RegisterRoutes(router)
 }
 
 func registerApiRoutes(router *gin.Engine) {

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"goapi/app/controllers/api"
+	"goapi/app/controllers"
 	"goapi/app/middlewares"
 	"net/http"
 
@@ -20,7 +20,7 @@ func (apiRoute *ApiRoute) RegisterRoutes(r *gin.Engine) {
 			})
 		})
 
-		auth := new(api.AuthController)
+		auth := new(controllers.AuthController)
 		apiGroup.POST("/auth/login", auth.Store)
 
 		apiGroup.Use(middlewares.AuthJWT())
@@ -28,7 +28,7 @@ func (apiRoute *ApiRoute) RegisterRoutes(r *gin.Engine) {
 			apiGroup.GET("/auth/me", auth.Me)
 			apiGroup.POST("/auth/refresh-token", auth.RefreshToken)
 
-			users := new(api.UserController)
+			users := new(controllers.UserController)
 			apiGroup.GET("/users", users.Index)
 		}
 
