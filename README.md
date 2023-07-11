@@ -1,5 +1,5 @@
 # 简介
- 一款使用 Gin + Gorm 搭建的基础 Go 框架 
+ 一款使用 Gin + Gorm 搭建的基础 Go API 框架 
 
 # 目录结构
 
