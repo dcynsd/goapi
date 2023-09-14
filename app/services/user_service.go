@@ -2,22 +2,21 @@ package services
 
 import (
 	"goapi/app/models"
-	"goapi/pkg/database"
+	"goapi/app/repositories"
 )
 
-type UserService struct{}
-
-func (s *UserService) GetList() (users []models.User) {
-	database.DB.Select("id,name,avatar,created_at").Find(&users)
-	return
+type UserService struct {
+	Repo repositories.UserRepo
 }
 
-func (s *UserService) GetByID(id uint64) (userModel models.User) {
-	database.DB.Where("id", id).First(&userModel)
-	return
+func (s *UserService) GetList() []models.User {
+	return s.Repo.GetList()
 }
 
-func (s *UserService) GetByUsername(username string) (userModel models.User) {
-	database.DB.Where("username = ?", username).First(&userModel)
-	return
+func (s *UserService) GetByID(id uint64) models.User {
+	return s.Repo.GetByID(id)
+}
+
+func (s *UserService) GetByUsername(username string) models.User {
+	return s.Repo.GetByUsername(username)
 }

@@ -10,7 +10,8 @@
 │   ├── middlewares                                                 // 中间件
 │   ├── models                                                      // 模型
 │   ├── requests                                                    // 请求验证
-│   ├── services                                                    // 服务
+│   ├── repositories                                                // 数据仓储
+│   ├── services                                                    // 业务服务
 ├── bootstrap                                                       // 框架引导
 ├── cmd                                                             // 命令
 ├── config                                                          // 配置
