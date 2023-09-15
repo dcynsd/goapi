@@ -112,4 +112,4 @@ docker build -t goapi .
 docker run --name goapi -d -p 8080:80 -v ~/your-path-for-env-file/.env:/app/.env goapi
 ```
 
- <font color=red>***WARNING: 运行镜像必须挂载 `.env` 文件，否则运行不了！！！***</font>
+***WARNING: 运行镜像必须挂载 `.env` 文件，否则运行不了！！！***
