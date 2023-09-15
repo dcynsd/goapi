@@ -97,3 +97,19 @@ go run main.go migrate refresh
 ```shell
 go run main.go migrate fresh
 ```
+
+# Docker 使用
+
+## 编译镜像
+
+```shell
+docker build -t goapi .
+```
+
+## 运行镜像
+
+```shell
+docker run --name goapi -d -p 8080:80 -v ~/your-path-for-env-file/.env:/app/.env goapi
+```
+
+ <font color=red>***WARNING: 运行镜像必须挂载 `.env` 文件，否则运行不了！！！***</font>
