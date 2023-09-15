@@ -28,13 +28,3 @@ func ({{VariableName}} *{{StructName}}) Delete() (rowsAffected int64) {
     result := database.DB.Delete(&{{VariableName}})
     return result.RowsAffected
 }
-
-func Paginate(c *gin.Context, perPage int) ({{VariableNamePlural}} []{{StructName}}, paging paginator.Paging) {
-	paging = paginator.Paginate(
-		c,
-		database.DB.Model({{StructName}}{}),
-		&{{VariableNamePlural}},
-		perPage,
-	)
-	return
-}
