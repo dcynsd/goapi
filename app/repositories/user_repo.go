@@ -8,7 +8,7 @@ import (
 type UserRepo struct{}
 
 func (r *UserRepo) GetList() (users []models.User) {
-	database.DB.Select("id,name,avatar,created_at").Find(&users)
+	database.DB.Select("id,name,avatar,created_at,updated_at").Find(&users)
 	return
 }
 
