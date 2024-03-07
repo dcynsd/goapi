@@ -3,8 +3,9 @@ package seeders
 import (
 	"fmt"
 
-	"goapi/app/services"
+	"goapi/app/models"
 	"goapi/database/factories"
+	"goapi/pkg/app"
 	"goapi/pkg/console"
 	"goapi/pkg/logger"
 	"goapi/pkg/seed"
@@ -28,8 +29,8 @@ func init() {
 			return
 		}
 
-		s := new(services.UserService)
-		userModel := s.GetByID(1)
+		var userModel models.User
+		app.DB.Where("id", 1).First(&userModel)
 		userModel.Name = "Administrator"
 		userModel.Username = "admin"
 		userModel.Password = "123456"

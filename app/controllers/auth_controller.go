@@ -1,17 +1,20 @@
 package controllers
 
 import (
-	"goapi/app/models"
 	"goapi/app/requests"
+	"goapi/app/services"
+	"goapi/pkg/api"
 	"goapi/pkg/auth"
 	"goapi/pkg/jwt"
 	"goapi/pkg/response"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mitchellh/mapstructure"
 )
 
-type AuthController struct{}
+type AuthController struct {
+	api.Api
+	Service services.AuthService
+}
 
 func (ctrl *AuthController) Store(c *gin.Context) {
 	request := requests.AuthRequest{}
@@ -19,9 +22,11 @@ func (ctrl *AuthController) Store(c *gin.Context) {
 		return
 	}
 
-	userModel, err := auth.Attempt(request.Username, request.Password)
+	ctrl.MakeContext(c).MakeService(&ctrl.Service.BaseService)
+
+	userModel, err := ctrl.Service.Login(request)
 	if err != nil {
-		response.Unauthorized(c, err.Error())
+		response.AbortWithStatus(c, ctrl.Error)
 		return
 	}
 
@@ -33,11 +38,13 @@ func (ctrl *AuthController) Store(c *gin.Context) {
 }
 
 func (ctrl *AuthController) Me(c *gin.Context) {
-	userModel := auth.CurrentUser(c)
-	var me models.Me
-	mapstructure.Decode(userModel, &me)
+	userModel := auth.User(c)
 
-	response.Data(c, me)
+	response.Data(c, gin.H{
+		"id":     userModel.ID,
+		"name":   userModel.Name,
+		"avatar": userModel.Avatar,
+	})
 }
 
 func (ctrl *AuthController) RefreshToken(c *gin.Context) {

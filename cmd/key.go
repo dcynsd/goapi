@@ -19,5 +19,5 @@ func runKeyGenerate(cmd *cobra.Command, args []string) {
 	console.Success("App Key:")
 	console.Success(helpers.RandomString(32))
 	console.Success("---")
-	console.Warning("please go .env file to change the APP_KEY option")
+	console.Warning("please open .env file to change the APP_KEY option")
 }

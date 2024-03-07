@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"goapi/pkg/app"
 	"goapi/pkg/config"
 	"goapi/pkg/database"
 	"goapi/pkg/logger"
@@ -29,9 +30,9 @@ func SetupDB() {
 	// 连接数据库，并设置 GORM 的日志模式
 	database.Connect(dbConfig, logger.NewGormLogger())
 	// 设置最大连接数
-	database.SQLDB.SetMaxOpenConns(25)
+	app.SQL_DB.SetMaxOpenConns(25)
 	// 设置最大空闲连接数
-	database.SQLDB.SetMaxIdleConns(100)
+	app.SQL_DB.SetMaxIdleConns(5)
 	// 设置每个链接的过期时间
-	database.SQLDB.SetConnMaxLifetime(time.Duration(300) * time.Second)
+	app.SQL_DB.SetConnMaxLifetime(time.Duration(300) * time.Second)
 }

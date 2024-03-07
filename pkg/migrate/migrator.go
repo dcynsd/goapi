@@ -4,6 +4,7 @@ package migrate
 import (
 	"os"
 
+	"goapi/pkg/app"
 	"goapi/pkg/console"
 	"goapi/pkg/database"
 	"goapi/pkg/file"
@@ -31,8 +32,8 @@ func NewMigrator() *Migrator {
 	// 初始化必要属性
 	migrator := &Migrator{
 		Folder:   "database/migrations/",
-		DB:       database.DB,
-		Migrator: database.DB.Migrator(),
+		DB:       app.DB,
+		Migrator: app.DB.Migrator(),
 	}
 	// migrations 不存在的话就创建它
 	migrator.createMigrationsTable()
@@ -134,7 +135,7 @@ func (migrator *Migrator) runUpMigration(mfile MigrationFile, batch int) {
 		// 友好提示
 		console.Warning("migrating " + mfile.FileName)
 		// 执行 up 方法
-		mfile.Up(database.DB.Migrator(), database.SQLDB)
+		mfile.Up(app.DB.Migrator(), app.SQL_DB)
 		// 提示已迁移了哪个文件
 		console.Success("migrated " + mfile.FileName)
 	}
@@ -173,7 +174,7 @@ func (migrator *Migrator) rollbackMigrations(migrations []Migration) bool {
 		// 执行迁移文件的 down 方法
 		mfile := getMigrationFile(_migration.Migration)
 		if mfile.Down != nil {
-			mfile.Down(database.DB.Migrator(), database.SQLDB)
+			mfile.Down(app.DB.Migrator(), app.SQL_DB)
 		}
 
 		runed = true

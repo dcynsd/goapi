@@ -3,7 +3,9 @@ package middlewares
 import (
 	"fmt"
 
-	"goapi/app/services"
+	"goapi/app/constants"
+	"goapi/app/models"
+	"goapi/pkg/app"
 	"goapi/pkg/config"
 	"goapi/pkg/jwt"
 	"goapi/pkg/response"
@@ -23,18 +25,16 @@ func AuthJWT() gin.HandlerFunc {
 			return
 		}
 
-		s := new(services.UserService)
-
-		// JWT 解析成功，设置用户信息
-		userModel := s.GetByID(claims.UserID)
+		var userModel models.User
+		app.DB.Where("id", claims.UserID).First(&userModel)
 		if userModel.ID == 0 {
 			response.Unauthorized(c, "找不到对应用户，用户可能已删除")
 			return
 		}
 
 		// 将用户信息存入 gin.context 里，后续 auth 包将从这里拿到当前用户数据
-		c.Set("current_user_id", userModel.ID)
-		c.Set("current_user", userModel)
+		c.Set(constants.AuthUserID, userModel.ID)
+		c.Set(constants.AuthUser, userModel)
 
 		c.Next()
 	}

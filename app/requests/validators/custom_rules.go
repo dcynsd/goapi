@@ -3,9 +3,8 @@ package validators
 import (
 	"errors"
 	"fmt"
+	"goapi/pkg/app"
 	"strings"
-
-	"goapi/pkg/database"
 
 	"github.com/thedevsaddam/govalidator"
 )
@@ -36,7 +35,7 @@ func init() {
 		requestValue := value.(string)
 
 		// 拼接 SQL
-		query := database.DB.Table(tableName).Where(dbFiled+" = ?", requestValue)
+		query := app.DB.Table(tableName).Where(dbFiled+" = ?", requestValue)
 
 		// 如果传参第三个参数，加上 SQL Where 过滤
 		if len(exceptID) > 0 {

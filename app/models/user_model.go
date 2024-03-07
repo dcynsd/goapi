@@ -1,7 +1,7 @@
 package models
 
 import (
-	"goapi/pkg/database"
+	"goapi/pkg/app"
 	"goapi/pkg/hash"
 
 	"gorm.io/gorm"
@@ -10,23 +10,16 @@ import (
 type User struct {
 	BaseModel
 
-	Username string `json:"username,omitempty"`
+	Username string `json:"username"`
 	Password string `json:"-"`
 	Name     string `json:"name"`
-	Avatar   string `json:"avatar,omitempty"`
+	Avatar   string `json:"avatar"`
 
-	CommonTimestampsField
-}
-
-type Me struct {
-	BaseModel
-
-	Name   string `json:"name"`
-	Avatar string `json:"avatar,omitempty"`
+	*CommonTimestampsField
 }
 
 func (userModel *User) Save() (rowsAffected int64) {
-	result := database.DB.Save(&userModel)
+	result := app.DB.Save(&userModel)
 	return result.RowsAffected
 }
 
@@ -37,6 +30,7 @@ func (userModel *User) BeforeSave(tx *gorm.DB) (err error) {
 	return
 }
 
+// ComparePassword 比对密码
 func (userModel *User) ComparePassword(_password string) bool {
 	return hash.BcryptCheck(_password, userModel.Password)
 }

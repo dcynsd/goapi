@@ -1,8 +1,8 @@
 package seed
 
 import (
+	"goapi/pkg/app"
 	"goapi/pkg/console"
-	"goapi/pkg/database"
 
 	"gorm.io/gorm"
 )
@@ -55,7 +55,7 @@ func RunAll() {
 		sdr := GetSeeder(name)
 		if len(sdr.Name) > 0 {
 			console.Warning("Running Odered Seeder: " + sdr.Name)
-			sdr.Func(database.DB)
+			sdr.Func(app.DB)
 			executed[name] = name
 
 		}
@@ -66,7 +66,7 @@ func RunAll() {
 		// 过滤已运行
 		if _, ok := executed[sdr.Name]; !ok {
 			console.Warning("Running Seeder: " + sdr.Name)
-			sdr.Func(database.DB)
+			sdr.Func(app.DB)
 		}
 	}
 }
@@ -75,7 +75,7 @@ func RunAll() {
 func RunSeeder(name string) {
 	for _, sdr := range seeders {
 		if name == sdr.Name {
-			sdr.Func(database.DB)
+			sdr.Func(app.DB)
 			break
 		}
 	}

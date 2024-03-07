@@ -1,9 +1,17 @@
 package app
 
 import (
+	"database/sql"
 	"time"
 
 	"goapi/pkg/config"
+
+	"gorm.io/gorm"
+)
+
+var (
+	DB     *gorm.DB
+	SQL_DB *sql.DB
 )
 
 func IsLocal() bool {

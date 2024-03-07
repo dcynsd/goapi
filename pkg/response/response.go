@@ -3,6 +3,7 @@ package response
 import (
 	"net/http"
 
+	"goapi/app/models"
 	"goapi/pkg/logger"
 
 	"github.com/gin-gonic/gin"
@@ -37,6 +38,17 @@ func DataWithStatus(c *gin.Context, data interface{}, status int) {
 	JSON(c, gin.H{
 		"status": status,
 		"data":   data,
+	})
+}
+
+func AbortWithStatus(c *gin.Context, err *models.Error) {
+	customStatusCode := err.CustomStatusCode
+	if err.CustomStatusCode == 0 {
+		customStatusCode = err.StatusCode
+	}
+	c.AbortWithStatusJSON(err.StatusCode, gin.H{
+		"status":  customStatusCode,
+		"message": err.Err.Error(),
 	})
 }
 
